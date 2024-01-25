@@ -3,16 +3,16 @@ import React from "react";
 export default function Footer() {
   return (
     <>
-      <footer class="flex flex-col items-center bg-zinc-900 text-center text-white dark:bg-neutral-600">
-        <div class="container pt-9">
-          <div class="mb-9 flex justify-center">
+      <footer className="flex flex-col items-center bg-zinc-900 text-center text-white dark:bg-neutral-600">
+        <div className="container pt-9">
+          <div className="mb-9 flex justify-center">
             <a
               href="https://twitter.com/tushardahiyaa"
-              class="mr-9 text-neutral-300 dark:text-neutral-200"
+              className="mr-9 text-neutral-300 dark:text-neutral-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="h-4 w-4"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -21,11 +21,11 @@ export default function Footer() {
             </a>
             <a
               href="https://www.instagram.com/tushardahiyaa"
-              class="mr-9 text-neutral-300 dark:text-neutral-200"
+              className="mr-9 text-neutral-300 dark:text-neutral-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="h-4 w-4"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -34,11 +34,11 @@ export default function Footer() {
             </a>
             <a
               href="https://www.linkedin.com/in/tushardahiya"
-              class="mr-9 text-neutral-300 dark:text-neutral-200"
+              className="mr-9 text-neutral-300 dark:text-neutral-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="h-4 w-4"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -47,11 +47,11 @@ export default function Footer() {
             </a>
             <a
               href="https://github.com/TusharDahiyaa"
-              class="text-neutral-300 dark:text-neutral-200"
+              className="text-neutral-300 dark:text-neutral-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="h-4 w-4"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -61,10 +61,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div class="w-full bg-zinc-900 p-4 text-center text-neutral-300 dark:bg-neutral-700 dark:text-neutral-200">
+        <div className="w-full bg-zinc-900 p-4 text-center text-neutral-300 dark:bg-neutral-700 dark:text-neutral-200">
           © 2023 Copyright:
           <a
-            class="text-neutral-300 dark:text-neutral-400"
+            className="text-neutral-300 dark:text-neutral-400"
             href="https://tw-elements.com/"
           >
             TW elements

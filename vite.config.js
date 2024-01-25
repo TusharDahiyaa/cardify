@@ -8,5 +8,20 @@ export default defineConfig(({ mode }) => {
       "process.env.REACT_APP_BASE_URL": JSON.stringify(env.REACT_APP_BASE_URL),
     },
     plugins: [react()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              return id
+                .toString()
+                .split("node_modules/")[1]
+                .split("/")[0]
+                .toString();
+            }
+          },
+        },
+      },
+    },
   };
 });
