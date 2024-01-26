@@ -1,3 +1,19 @@
 body {
   background-color: rgb(24 24 27) !important;
 }
+
+.iti__flag {
+  background-image: url("path/to/flags.png");
+}
+
+@media (min-resolution: 2x) {
+  .iti__flag {
+    background-image: url("path/to/flags@2x.png");
+  }
+}
+
+.PhoneInputCountrySelect {
+  overflow: hidden;
+  background: #18181b;
+  color: #e4e4e7;
+}
