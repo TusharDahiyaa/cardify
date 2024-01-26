@@ -28,7 +28,7 @@ export default function BusinessCardDetails() {
           "Successfully created the business card!",
           "Okay",
           () => {
-            // window.location.href = "/businessCard";
+            window.location.href = "/businessCard";
           }
         );
       } else {
