@@ -28,6 +28,20 @@ export default function UserEntry() {
             window.location.href = "/login";
           }
         );
+      } else if (response.status === 401) {
+        Loading.remove();
+        Report.warning(
+          "Username already exists!",
+          "This username is already taken, please choose another one.",
+          "Okay"
+        );
+      } else if (response.status === 409) {
+        Loading.remove();
+        Report.warning(
+          "Error in password inputs!",
+          "The passwords do not match!",
+          "Okay"
+        );
       } else {
         // console.error("Failed to create a user");
         Report.failure(
@@ -58,10 +72,6 @@ export default function UserEntry() {
       data[key] = value;
     });
 
-    // Now 'data' contains the form field values, and you can use it as needed
-    // console.log(data);
-
-    // Add your logic to save the data to the backend (e.g., using an API call)
     saveUser(data);
   };
 
@@ -80,7 +90,7 @@ export default function UserEntry() {
         </h2>
         <div className="mb-5">
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="block mb-2 text-sm font-medium text-gray-300 dark:text-white"
           >
             Your email
@@ -112,15 +122,15 @@ export default function UserEntry() {
         </div>
         <div className="mb-5">
           <label
-            htmlFor="repeat-password"
+            htmlFor="repeatPassword"
             className="block mb-2 text-sm font-medium text-gray-300 dark:text-white"
           >
             Repeat password
           </label>
           <input
             type="password"
-            name="repeat-password"
-            id="repeat-password"
+            name="repeatPassword"
+            id="repeatPassword"
             autoComplete="on"
             className="shadow-sm bg-gray-50 border border-zinc-500 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
