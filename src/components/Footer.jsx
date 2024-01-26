@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="w-full bg-zinc-900 p-4 text-center text-neutral-300 dark:bg-neutral-700 dark:text-neutral-200">
-          Made with <i class="fa-solid fa-heart"></i> by Tushar Dahiya
+          Made with <i className="fa-solid fa-heart"></i> by Tushar Dahiya
         </div>
       </footer>
     </>

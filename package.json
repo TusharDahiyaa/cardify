@@ -12,11 +12,14 @@
   "dependencies": {
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.11",
+    "minidenticons": "^4.2.0",
     "notiflix": "^3.2.7",
     "react": "^18.2.0",
     "react-avatar": "^5.0.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
+    "react-jdenticon": "^1.1.0",
     "react-router-dom": "^6.21.3"
   },
   "devDependencies": {

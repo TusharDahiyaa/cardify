@@ -1,12 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-import Avatar from "react-avatar";
 import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
+import { minidenticon } from "minidenticons";
+import { toPng } from "html-to-image";
+import {
+  FaInstagram,
+  FaLinkedinIn,
+  FaGithub,
+  FaXTwitter,
+  FaFacebookF,
+  FaStackOverflow,
+} from "react-icons/fa6";
 
 export default function E_BusinessCard() {
   const [cards, setCards] = useState({});
   const token = window.localStorage.getItem("token");
+
+  const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
+    const svgURI = useMemo(
+      () =>
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(minidenticon(username, saturation, lightness)),
+      [username, saturation, lightness]
+    );
+    return <img src={svgURI} alt={username} {...props} />;
+  };
 
   useEffect(() => {
     getBusinessCards();
@@ -69,38 +88,22 @@ export default function E_BusinessCard() {
     }
   };
 
-  const options = {
-    allowTaint: true,
-    useCORS: true,
-    removeContainer: true,
-    windowWidth: 500,
-    windowHeight: 500,
-    letterRendering: true,
-    scale: 5,
-    backgroundColor: null,
-    logging: false,
-  };
-
   const downloadImageFn = async (cardId) => {
     const cardElement = document.querySelector(`#BusinessCardFull-${cardId}`);
-    if (!cardElement) return;
-
-    try {
-      // lazy loading html2canvas
-      const html2canvas = await import("html2canvas");
-
-      const result = await html2canvas.default(cardElement, options);
-
-      const asURL = result.toDataURL("image/png");
-      // as far as I know this is a quick and dirty solution
-      const anchor = document.createElement("a");
-      anchor.href = asURL;
-      anchor.download = "businessCard.png";
-      anchor.click();
-      anchor.remove();
-    } catch (error) {
-      // console.error("oops, something went wrong!", error);
+    if (cardElement === null) {
+      return;
     }
+
+    toPng(cardElement, { cacheBust: true, cors: true, pixelRatio: 5 })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `businessCard-${Math.ceil(Math.random() * 100000)}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -130,26 +133,17 @@ export default function E_BusinessCard() {
                 //     "linear-gradient(to right bottom, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b)",
                 // }}
               >
-                <span className="flex justify-center">
-                  <Avatar
-                    name={card.name}
-                    instagramId={card.instagram}
-                    githubHandle={card.github}
-                    facebookId={card.facebook}
-                    twitterHandle={card.twitter}
-                    src="./3d-emotion.jpg"
-                    className="rounded-full"
+                <span className="flex justify-center rounded-full">
+                  <MinidenticonImg
+                    saturation="60"
+                    username={card.about}
                     crossOrigin="anonymous"
-                    color={Avatar.getRandomColor("sitebase", [
-                      "red",
-                      "green",
-                      "blue",
-                      "indigo",
-                      "#8c8c8c",
-                      "#503632",
-                      "#a06c65",
-                      "#6a0dad",
-                    ])}
+                    style={{
+                      borderRadius: "50%",
+                      height: "100px",
+                      width: "100px",
+                      backgroundColor: "none",
+                    }}
                   />
                 </span>
                 <h4
@@ -195,32 +189,32 @@ export default function E_BusinessCard() {
                 flex flex-wrap justify-center w-full md:w-[80%] mx-auto gap-4 pb-2 text-l font-medium leading-5 text-white"
                 >
                   {card.linkedin ? (
-                    <li className="px-2 py-1 rounded-xl bg-blue-900">
-                      <i className="fa-brands fa-linkedin"></i>{" "}
+                    <li className="flex items-center px-2 py-1 rounded-xl bg-blue-900">
+                      <FaLinkedinIn size="20" className="mr-1" />
                       <a href={`https://www.linkedin.com/in/${card.linkedin}`}>
                         {card.linkedin}
                       </a>
                     </li>
                   ) : null}
                   {card.github ? (
-                    <li className="px-2 py-1 rounded-xl bg-slate-800">
-                      <i className="fa-brands fa-github"></i>{" "}
+                    <li className="flex items-center px-2 py-1 rounded-xl bg-slate-800">
+                      <FaGithub size="20" className="mr-1" />
                       <a href={`https://www.github.com/${card.github}`}>
                         {card.github}
                       </a>
                     </li>
                   ) : null}
                   {card.twitter ? (
-                    <li className="px-2 py-1 rounded-xl bg-black">
-                      <i className="fa-brands fa-x-twitter"></i>{" "}
+                    <li className="flex items-center px-2 py-1 rounded-xl bg-black">
+                      <FaXTwitter size="20" className="mr-1" />
                       <a href={`https://www.x.com/${card.twitter}`}>
                         {card.twitter}
                       </a>
                     </li>
                   ) : null}
                   {card.facebook ? (
-                    <li className="px-2 py-1 rounded-xl bg-blue-600">
-                      <i className="fa-brands fa-facebook-f"></i>{" "}
+                    <li className="flex items-center px-2 py-1 rounded-xl bg-blue-600">
+                      <FaFacebookF size="20" className="mr-1" />
                       <a href={`https://www.facebook.com/${card.facebook}`}>
                         {card.facebook}
                       </a>
@@ -228,21 +222,21 @@ export default function E_BusinessCard() {
                   ) : null}
                   {card.instagram ? (
                     <li
-                      className="px-2 py-1 rounded-xl"
+                      className="flex items-center px-2 py-1 rounded-xl"
                       style={{
                         backgroundImage:
                           "linear-gradient(to right bottom, #405de6, #854fd5, #ac40bf, #c731a6, #d7298d, #e12b7d, #e8336e, #ec3f5f, #f24c55, #f55a4b, #f76941, #f77737)",
                       }}
                     >
-                      <i className="fa-brands fa-instagram"></i>{" "}
+                      <FaInstagram size="20" className="mr-1" />
                       <a href={`https://www.instagram.com/${card.instagram}`}>
                         {card.instagram}
                       </a>
                     </li>
                   ) : null}
                   {card.stackOverflow ? (
-                    <li className="px-2 py-1 rounded-xl bg-amber-500">
-                      <i className="fa-brands fa-stack-overflow"></i>{" "}
+                    <li className="flex items-center px-2 py-1 rounded-xl bg-amber-500">
+                      <FaStackOverflow size="20" className="mr-1" />
                       <a
                         href={`https://www.stackoverflow.com/users/${card.stackOverflow}`}
                         className="leading-6"
